@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Speedster:
   colouredName: <bold><aqua>Speedster
   description: You have permanent speed IV

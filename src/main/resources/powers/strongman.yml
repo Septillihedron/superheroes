@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Strongman:
   colouredName: <bold><gray>Strongman
   description: You can pickup and throw entities!

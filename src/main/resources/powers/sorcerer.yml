@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Sorcerer:
   colouredName: <bold><dark_purple>Sorcerer
   description: You can create magical spell books and wield them using redstone

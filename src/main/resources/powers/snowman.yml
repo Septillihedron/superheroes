@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Snowman:
   colouredName: <bold><white>Snowman
   description: You create snow trails!

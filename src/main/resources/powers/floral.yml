@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Floral:
   colouredName: <bold><green>Floral
   description: Wherever you look, you create flowers. Right-clicking with flowers

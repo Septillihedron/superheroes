@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Disguise:
   colouredName: <bold><gray>Disguise
   description: You can trick players with your waifu disguise.

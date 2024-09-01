@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Phase:
   colouredName: <bold><dark_purple>Phase
   description: You can phase through the ground by sneaking!

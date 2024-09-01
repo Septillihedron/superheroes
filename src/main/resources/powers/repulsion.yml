@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Repulsion:
   colouredName: <bold><aqua>Repulsion
   description: When you sneak, entities are repelled!

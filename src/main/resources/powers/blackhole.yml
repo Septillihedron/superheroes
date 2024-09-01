@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 BlackHole:
   colouredName: <bold><gradient:#222222:#DDDDDD>Black Hole
   description: When you sneak, entities are attracted!

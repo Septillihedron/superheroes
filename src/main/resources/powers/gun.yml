@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Gun:
   colouredName: <bold><dark_gray>Gun
   description: You have a gun.

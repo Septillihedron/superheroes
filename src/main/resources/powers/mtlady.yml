@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 MtLady:
   colouredName: <bold><light_purple>Mt. Lady
   description: You are a giant!

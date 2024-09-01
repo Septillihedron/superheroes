@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Zeus:
   colouredName: <bold><yellow>Zeus
   description: Punching causes you to strike lightning wherever you look.

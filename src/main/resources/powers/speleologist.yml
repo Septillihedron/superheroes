@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Speleologist:
   colouredName: <bold><gray>Speleologist
   description: Instantly smelt and double ores!

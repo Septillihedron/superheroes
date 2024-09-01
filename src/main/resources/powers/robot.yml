@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Robot:
   colouredName: <bold><gray>The Robot
   description: You're a robot

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Scavenger:
   colouredName: <bold><yellow>Scavenger
   description: You unlock additional crafting recipes

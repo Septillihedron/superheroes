@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Spiderman:
   colouredName: <red><b>Spiderman
   description: You can climb blocks!

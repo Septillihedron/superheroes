@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 LavaWalker:
   colouredName: <bold><red>Lava-Walker
   description: You can walk on lava and fire heals you!

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 ExtraHeartMan:
   colouredName: <bold><yellow>ExtraHeartMan
   description: Has extra hearts and can give extra hearts to others

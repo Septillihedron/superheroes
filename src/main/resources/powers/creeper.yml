@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Creeper:
   colouredName: <bold><dark_green>Creeper
   description: You're a creeper.

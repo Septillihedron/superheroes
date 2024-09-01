@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Enderman:
   colouredName: <bold><dark_purple>Enderman
   description: You can teleport by punching.

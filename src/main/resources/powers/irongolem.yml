@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 IronGolem:
   colouredName: <bold><white>Iron Golem
   description: You're an iron golem

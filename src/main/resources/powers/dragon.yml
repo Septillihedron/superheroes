@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Dragon:
   colouredName: <bold><dark_purple>Dragon
   description: You can throw fireballs.

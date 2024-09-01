@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://septillihedron.github.io/SuperheroesPlusSchema/Superheroes.json
 Spartan:
   colouredName: <bold><yellow>Spartan
   description: Your shield cannot be cancelled and lob arrows like a madman!
