@@ -12,7 +12,7 @@ Creeper:
       cooldown: 18
       fuse: 2
       creeper_power: 1
-      upwards_velocity: 2.5
+      upwardsVelocity: 2.5
       cooldownMessage: '<bold><dark_green>Creeper </dark_green></bold><white>Cooldown:
         <currentcooldown> seconds'
       slowfall_duration: 7

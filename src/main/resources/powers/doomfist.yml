@@ -15,7 +15,7 @@ Doomfist:
       airCooldown: 1
       foodCost: 3
       minimumFood: 6
-      diameterRadius: 5
+      radius: 5
       damage: 8
       cooldownMessage: '<bold><#ff00ff>S</#ff00ff><#bf00bf>l</#bf00bf><#800080>a</#800080><#400040>m</#400040><black>
         </black></bold><white>Cooldown: <currentcooldown> seconds'
