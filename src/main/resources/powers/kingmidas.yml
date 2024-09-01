@@ -24,7 +24,6 @@ KingMidas:
       - REDSTONE_BLOCK
       - EMERALD_BLOCK
       outputBlock: GOLD_BLOCK
-      chance: 1.0
     dropsGoldNuggets:
       skill: EGGLAYER
       type: GOLD_NUGGET
@@ -47,7 +46,7 @@ KingMidas:
           type: SPAWNENTITY
           mode: OTHER
           entity:
-            type: DROPPED_ITEM
+            type: ITEM
             item:
               type: GOLD_INGOT
               amount: 1

@@ -14,7 +14,7 @@ Floral:
     dandelion:
       skill: CONSUME
       material: DANDELION
-      type: FAST_DIGGING
+      type: HASTE
       potency: 1
       duration: 30
       hunger: 1

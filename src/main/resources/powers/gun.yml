@@ -31,7 +31,7 @@ Gun:
         amount: 1
         metadata:
           displayName: <bold><dark_gray>Gun
-          isUnbreakable: true
+          # isUnbreakable: true # not implemented
           lore:
             - <italic><white>This is a legitimate superpower, I promise.
       shootSound:

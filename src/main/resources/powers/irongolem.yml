@@ -14,11 +14,11 @@ IronGolem:
       delay: 60
     slowness:
       skill: POTIONEFFECT
-      type: SLOW
+      type: SLOWNESS
       potency: 1
     resistance:
       skill: POTIONEFFECT
-      type: DAMAGE_RESISTANCE
+      type: RESISTANCE
       potency: 1
     noFall:
       skill: DAMAGERESISTANCE

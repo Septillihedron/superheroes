@@ -5,7 +5,7 @@ Superhuman:
   skills:
     resistance:
       skill: POTIONEFFECT
-      type: DAMAGE_RESISTANCE
+      type: RESISTANCE
       potency: 1
     speed:
       skill: POTIONEFFECT
@@ -13,9 +13,9 @@ Superhuman:
       potency: 1
     jump:
       skill: POTIONEFFECT
-      type: JUMP
+      type: JUMP_BOOST
       potency: 2
     haste:
       skill: POTIONEFFECT
-      type: FAST_DIGGING
+      type: HASTE
       potency: 1

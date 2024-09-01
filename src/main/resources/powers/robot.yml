@@ -12,7 +12,7 @@ Robot:
       minimumHunger: 19 # reduced from 20 to allow for eating food for regeneration purposes
     damageres:
       skill: POTIONEFFECT
-      type: DAMAGE_RESISTANCE
+      type: RESISTANCE
     nightvision:
       skill: POTIONEFFECT
       type: NIGHT_VISION

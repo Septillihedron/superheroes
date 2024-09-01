@@ -11,7 +11,7 @@ Enderman:
       skill: TELEPORT
       leftClick: true
       distance: 30
-      yAxisMultiplier: 0.75
+      yAxisDistanceMultiplier: 0.75
       teleportCause: ENDER_PEARL
       cooldown: 10
       cooldownMessage: <bold><dark_purple>Teleport </dark_purple></bold><gray>has
@@ -24,4 +24,4 @@ Enderman:
     ohko:
       skill: OHKO
       entityTypes:
-        - Enderman
+        - ENDERMAN

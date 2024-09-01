@@ -9,7 +9,7 @@ Frozone:
   skills:
     aura:
       skill: AURA
-      type: SLOW
+      type: SLOWNESS
       potency: 1
       duration: 15
       radius: 15
@@ -59,6 +59,7 @@ Frozone:
               mode: OTHER
               value: 0.95
               operation: MULTIPLY
+              component: Y
 
 
 
