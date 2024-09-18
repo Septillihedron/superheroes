@@ -1,5 +1,5 @@
 group = "me.xemor"
-version = "6.1.0"
+version = "6.2.0-constants"
 description = "superheroes"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
@@ -85,39 +85,6 @@ sentry {
     }
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "xemorReleases"
-            url = uri("https://repo.xemor.zip/releases")
-            credentials(PasswordCredentials::class)
-            authentication {
-                isAllowInsecureProtocol = true
-                create<BasicAuthentication>("basic")
-            }
-        }
-
-        maven {
-            name = "xemorSnapshots"
-            url = uri("https://repo.xemor.zip/snapshots")
-            credentials(PasswordCredentials::class)
-            authentication {
-                isAllowInsecureProtocol = true
-                create<BasicAuthentication>("basic")
-            }
-        }
-    }
-
-    publications {
-        create<MavenPublication>("maven") {
-            groupId = rootProject.group.toString()
-            artifactId = rootProject.name
-            version = rootProject.version.toString()
-            from(project.components["java"])
-        }
-    }
-}
-
 tasks.withType<JavaCompile>() {
     options.encoding = "UTF-8"
 }
@@ -129,6 +96,3 @@ tasks.processResources {
     expand("version" to rootProject.version)
 }
 
-publishing {
-
-}

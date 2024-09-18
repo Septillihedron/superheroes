@@ -43,6 +43,7 @@ public class ConfigHandler {
     private FileConfiguration languageYAML;
     private FileConfiguration databaseYAML;
     private FileConfiguration config;
+    private ConstantsPreprocessor constantsPreprocessor;
     private final Superheroes superheroes;
 
     public ConfigHandler(Superheroes superheroes) {
@@ -56,8 +57,12 @@ public class ConfigHandler {
         if (!new File(superheroes.getDataFolder(), "database.yml").exists()) {
             superheroes.saveResource("database.yml", false);
         }
+        if (!new File(superheroes.getDataFolder(), "constants.yml").exists()) {
+            superheroes.saveResource("constants.yml", false);
+        }
         this.languageYAML = YamlConfiguration.loadConfiguration(new File(dataFolder, "language.yml"));
         this.databaseYAML = YamlConfiguration.loadConfiguration(new File(dataFolder, "database.yml"));
+        this.constantsPreprocessor = new ConstantsPreprocessor(dataFolder);
         this.handleSuperpowersFolder();
     }
 
@@ -156,6 +161,7 @@ public class ConfigHandler {
         HashMap<String, Superhero> nameToSuperhero = new HashMap<>();
         for (ConfigurationSection superheroSection : sections) {
             try {
+                constantsPreprocessor.process(superheroSection);
                 String superheroName = superheroSection.getName();
                 String colouredSuperheroName = superheroSection.getString("colouredName", superheroName);
                 String superheroDescription = superheroSection.getString("description", superheroName + " description");
@@ -185,7 +191,7 @@ public class ConfigHandler {
             icon = new ItemStackData(heroSection.getConfigurationSection("icon")).getItem();
         } else {
             TextColor color;
-            icon = hero.getBase64Skin().equals("") ? ((color = colouredName.color()) == null ? new ItemStack(Material.BLACK_WOOL) : new ItemStack(this.woolFromColor(color.red(), color.green(), color.blue()))) : SkullCreator.itemFromBase64(hero.getBase64Skin());
+            icon = ((color = colouredName.color()) == null ? new ItemStack(Material.BLACK_WOOL) : new ItemStack(this.woolFromColor(color.red(), color.green(), color.blue())));
             ItemMeta meta = icon.getItemMeta();
             meta.setDisplayName(legacySerializer.serialize(colouredName));
             Component description = MiniMessage.miniMessage().deserialize(hero.getDescription());
@@ -214,6 +220,7 @@ public class ConfigHandler {
         Bukkit.getServer().getPluginManager().callEvent(superheroesReloadEvent);
         this.superheroes.reloadConfig();
         this.config = this.superheroes.getConfig();
+        this.constantsPreprocessor.reloadConfig(this.getDataFolder());
         heroHandler.loadConfigItems();
         this.handleSuperpowersFolder();
         heroHandler.handlePlayerData();
