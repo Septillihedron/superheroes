@@ -185,13 +185,12 @@ public class ConfigHandler {
 
     private void calculateIcon(Superhero hero, ConfigurationSection heroSection) {
         ItemStack icon;
-        ConfigurationSection section = heroSection.getConfigurationSection("icon");
-        Component colouredName = MiniMessage.miniMessage().deserialize(hero.getColouredName());
-        if (section != null) {
-            icon = new ItemStackData(heroSection.getConfigurationSection("icon")).getItem();
+        ConfigurationSection iconSection = heroSection.getConfigurationSection("icon");
+        if (iconSection != null) {
+            icon = new ItemStackData(iconSection).getItem();
         } else {
-            TextColor color;
-            icon = ((color = colouredName.color()) == null ? new ItemStack(Material.BLACK_WOOL) : new ItemStack(this.woolFromColor(color.red(), color.green(), color.blue())));
+            Component colouredName = MiniMessage.miniMessage().deserialize(hero.getColouredName());
+            icon = createSkullIcon(hero).orElseGet(() -> createWoolIcon(llcolouredName));
             ItemMeta meta = icon.getItemMeta();
             meta.setDisplayName(legacySerializer.serialize(colouredName));
             Component description = MiniMessage.miniMessage().deserialize(hero.getDescription());
@@ -200,6 +199,26 @@ public class ConfigHandler {
             icon.setItemMeta(meta);
         }
         hero.setIcon(icon);
+    }
+
+    private ItemStack createWoolIcon(Component colouredName) {
+        TextColor color = colouredName.color();
+        if (color == null) {
+            return new ItemStack(Material.BLACK_WOOL);
+        }
+        return new ItemStack(this.woolFromColor(color.red(), color.green(), color.blue()));
+    }
+
+    private Optional<ItemStack> createSkullIcon(Superhero hero) {
+        String base64Skin = hero.getBase64Skin();
+        if (base64Skin.isEmpty()) return Optional.empty();
+        try {
+            return Optional.of(SkullCreator.itemFromBase64(base64Skin));
+        } catch (IllegalArgumentException e) {
+            Superheroes.getInstance().getLogger().severe("Failed to make skull icons");
+            e.printStackTrace();
+            return Optional.empty();
+        }
     }
 
     public Material woolFromColor(int red, int green, int blue) {
