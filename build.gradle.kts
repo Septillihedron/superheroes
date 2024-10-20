@@ -15,7 +15,6 @@ repositories {
     maven { url = uri("https://hub.spigotmc.org/nexus/content/repositories/snapshots/") }
     maven { url = uri("https://papermc.io/repo/repository/maven-public/")}
     maven { url = uri("https://repo.codemc.org/repository/maven-public") }
-    maven { url = uri("https://github.com/deanveloper/SkullCreator/raw/mvn-repo/") }
     maven { url = uri("https://repo.minebench.de/") }
     maven { url = uri("https://repo.maven.apache.org/maven2/") }
     maven { url = uri("https://maven.enginehub.org/repo/")}
@@ -31,14 +30,14 @@ dependencies {
     compileOnly("org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT")
     compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.6")
     compileOnly("me.xemor:skillslibrary:2.23.0")
-    shadow("me.xemor:configurationdata:3.4.2-SNAPSHOT")
+    shadow("me.xemor:configurationdata:3.4.3-SNAPSHOT")
     shadow("org.bstats:bstats-bukkit:1.7")
     shadow("me.xemor:userinterfaces:2.0.2-SNAPSHOT")
     shadow("org.jetbrains:annotations:20.1.0")
     shadow("net.kyori:adventure-platform-bukkit:4.3.3-SNAPSHOT")
     shadow("net.kyori:adventure-text-minimessage:4.17.0")
     shadow("mysql:mysql-connector-java:8.0.29")
-    shadow("dev.dbassett:skullcreator:3.0.1")
+    shadow("me.sepdron:HeadCreator:2.0.0")
     shadow("com.zaxxer:HikariCP:4.0.3")
     shadow("org.apache.commons:commons-lang3:3.12.0")
     shadow("io.sentry:sentry:6.29.0")
@@ -59,9 +58,9 @@ tasks.shadowJar {
     relocate("org.jetbrains", "me.xemor.superheroes.org.jetbrains")
     relocate("mysql", "me.xemor.superheroes.mysql")
     relocate("com.zaxxer", "me.xemor.superheroes.com.zaxxer")
+    relocate("me.sepdron", "me.xemor.superheroes.me.sepdron")
     relocate("org.apache.commons", "me.xemor.superheroes.org.apache.commons")
     relocate("org.bstats", "me.xemor.superheroes.org.bstats")
-    relocate("dev.bassett", "me.xemor.superheroes.dev.bassett")
     relocate("io.sentry", "me.xemor.sentry")
     relocate("space.arim.morepaperlib", "me.xemor.superheroes.morepaperlib")
     relocate("me.xemor.foliahacks", "me.xemor.superheroes.foliahacks")

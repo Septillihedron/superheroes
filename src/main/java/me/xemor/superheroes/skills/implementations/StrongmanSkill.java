@@ -93,9 +93,11 @@ public class StrongmanSkill extends SkillImplementation {
                     velocity.setZ(velocity.getZ() * strongmanData.getVelocity());
                     velocity.setY(velocity.getY() * strongmanData.getUpwardsVelocity());
                     topEntity.getVehicle().removePassenger(topEntity);
-                    Superheroes.getScheduling().entitySpecificScheduler(topEntity).runDelayed(
-                            () -> topEntity.setVelocity(velocity), () -> {}, 1L
-                    );
+                    for (long i = 1; i < 3; i++) {
+                        Superheroes.getScheduling().entitySpecificScheduler(topEntity).runDelayed(
+                                () -> topEntity.setVelocity(velocity), () -> {}, i
+                        );
+                    }
                 }
             }
         }
