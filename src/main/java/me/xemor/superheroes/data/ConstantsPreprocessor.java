@@ -8,7 +8,6 @@ import org.intellij.lang.annotations.RegExp;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.util.*;
-import java.util.logging.Logger;
 
 public class ConstantsPreprocessor {
 
@@ -41,15 +40,7 @@ public class ConstantsPreprocessor {
             boolean isSpread = value.startsWith("...", 2);
             String constantPath = extractPath(value, isSpread);
 
-            Optional<Object> constantValueOptional = lookupConstant(localConstants, constantPath)
-                    .or(() -> lookupConstant(globalConstants, constantPath));
-
-            if (constantValueOptional.isEmpty()) {
-                Superheroes.getInstance().getLogger().severe("Invalid constant path: \"" + constantPath + "\"");
-                continue;
-            }
-
-            Object constantValue = constantValueOptional.get();
+            Object constantValue = lookupConstant(localConstants, constantPath, path);
 
             replaceConstant(input, path, isSpread, constantValue);
         }
@@ -115,10 +106,15 @@ public class ConstantsPreprocessor {
         );
     }
 
-    private static Optional<Object> lookupConstant(@Nullable ConfigurationSection constants, String path) {
-        if (constants == null) return Optional.empty();
-        if (!constants.contains(path)) return Optional.empty();
-        return Optional.of(Objects.requireNonNull(constants.get(path)));
+    private @Nullable Object lookupConstant(@Nullable ConfigurationSection localConstants, String path, String location) {
+        if (localConstants != null && localConstants.contains(path)) {
+            return localConstants.get(path);
+        }
+        if (globalConstants.contains(path)) {
+            return globalConstants.get(path);
+        }
+        Superheroes.getInstance().getLogger().severe("Invalid constant path: \"" + path + "\" at "+location);
+        return null;
     }
 
 }
