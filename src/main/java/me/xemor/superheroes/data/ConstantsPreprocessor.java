@@ -30,78 +30,98 @@ public class ConstantsPreprocessor {
 
     private void process(ConfigurationSection input, boolean hasLocalConstants) {
         ConfigurationSection localConstants = hasLocalConstants? input.getConfigurationSection("constants") : null;
-
-        for (String path : input.getKeys(true)) {
-            String value = input.getString(path, null);
-            if (value == null) continue;
-            if (!value.matches(constantPathRegex)) continue;
-            input.set(path, null);
-
-            boolean isSpread = value.startsWith("...", 2);
-            String constantPath = extractPath(value, isSpread);
-
-            Object constantValue = lookupConstant(localConstants, constantPath, path);
-
-            replaceConstant(input, path, isSpread, constantValue);
-        }
+        processSection(input, localConstants);
     }
 
-    private void replaceConstant(ConfigurationSection input, String path, boolean isSpread, Object constantValue) {
-        if (!isSpread) {
-            input.set(path, constantValue);
-        } else {
-            replaceSpreadConstant(input, path, constantValue);
-        }
+    private void processSection(ConfigurationSection input, ConfigurationSection localConstants) {
+        input.getValues(false).forEach((key, value) -> {
+            if (value instanceof ConfigurationSection section) {
+                processSection(section, localConstants);
+                return;
+            }
+            if (value instanceof List<?> list) {
+                input.set(key, processList(list, localConstants));
+                return;
+            }
+            if (value instanceof String path) {
+                replaceConstantInSection(input, localConstants, key, path);
+            }
+        });
     }
 
-    private void replaceSpreadConstant(ConfigurationSection input, String path, Object constantValue) {
-        String parentPath = getParentPath(path);
-        if (constantValue instanceof ConfigurationSection constantSection) {
-            replaceSpreadConstantSection(input, path, constantSection, parentPath);
-        } else if (constantValue instanceof List<?> constantList) {
-            replaceSpreadConstantList(input, path, constantList, parentPath);
+    private void replaceConstantInSection(ConfigurationSection input, ConfigurationSection localConstants, String key, String path) {
+        ConstantData constantData = getConstantData(localConstants, path);
+        if (constantData == null) return;
+
+        if (!constantData.isSpread) {
+            input.set(path, constantData.value);
+            return;
+        }
+        if (constantData.value instanceof ConfigurationSection constantSection) {
+            input.set(key, null);
+            replaceSpreadConstantSection(input, path, constantSection, input);
+        } else if (constantData.value instanceof List<?>) {
+            Superheroes.getInstance().getLogger().severe("Invalid spread operator at " + path + ". Lists cannot be spread in a section");
         } else {
             Superheroes.getInstance().getLogger().severe("Invalid spread operator at " + path + ". Only sections and lists can be spread");
         }
     }
 
-    private static void replaceSpreadConstantSection(ConfigurationSection input, String path, ConfigurationSection constantSection, String parentPath) {
-        ConfigurationSection target = input.getConfigurationSection(parentPath);
-        if (target == null) {
-            Superheroes.getInstance().getLogger().severe("Invalid spread operator at " + path + ". Spread operator on section constants must be in a section");
-            return;
+    private List<?> processList(List<?> input, ConfigurationSection localConstants) {
+        ArrayList<Object> result = new ArrayList<>();
+        for (int i = 0; i < input.size(); i++) {
+            Object value = input.get(i);
+            if (value instanceof ConfigurationSection section) {
+                processSection(section, localConstants);
+                result.add(section);
+                continue;
+            }
+            if (value instanceof List<?> list) {
+                result.add(processList(list, localConstants));
+                continue;
+            }
+            if (value instanceof String path) {
+                ConstantData constantData = getConstantData(localConstants, path);
+                if (constantData == null) continue;
+
+                if (!constantData.isSpread) {
+                    result.add(i, constantData.value);
+                    continue;
+                }
+                if (constantData.value instanceof List<?> list) {
+                    result.addAll(list);
+                } else if (constantData.value instanceof ConfigurationSection) {
+                    Superheroes.getInstance().getLogger().severe("Invalid spread operator at " + path + ". Sections cannot be spread in a list");
+                } else {
+                    Superheroes.getInstance().getLogger().severe("Invalid spread operator at " + path + ". Only sections and lists can be spread");
+                }
+            }
         }
+        return result;
+    }
+
+    private @org.jetbrains.annotations.Nullable ConstantData getConstantData(ConfigurationSection localConstants, String path) {
+        if (!path.matches(constantPathRegex)) return null;
+        boolean isSpread = path.startsWith("...", 2);
+        String constantPath = extractPath(path, isSpread);
+        Object constantValue = lookupConstant(localConstants, constantPath, path);
+        return new ConstantData(constantValue, isSpread);
+    }
+
+    private static void replaceSpreadConstantSection(ConfigurationSection input, String path, ConfigurationSection constantSection, ConfigurationSection parent) {
         constantSection.getValues(false)
                 .forEach((key, value) -> {
-                    if (target.contains(key)) {
+                    if (parent.contains(key)) {
                         Superheroes.getInstance().getLogger().warning("Constant at " + path + " is overriding a value with key: " + key);
                     }
-                    target.set(key, value);
+                    parent.set(key, value);
                 });
     }
 
-    private static void replaceSpreadConstantList(ConfigurationSection input, String path, List<?> constantList, String parentPath) {
-        List<?> target = input.getList(parentPath);
-        if (target == null) {
-            Superheroes.getInstance().getLogger().severe("Invalid spread operator at " + path + ". Spread operator on list constants must be in a list");
-            return;
-        }
-        List<Object> newList = new ArrayList<>(target);
-        newList.addAll(constantList);
-        input.set(parentPath, newList);
-    }
-
-    private String getParentPath(String path) {
-        int lastDotIndex = path.lastIndexOf(".");
-        if (lastDotIndex == -1) {
-            throw new IllegalArgumentException("Failed in getting the parent of a path");
-        }
-        return path.substring(0, lastDotIndex);
-    }
-
     private static String extractPath(String value, boolean isSpread) {
+        int prefixLength = isSpread? "C{...".length() : "C{".length();
         return value.substring(
-                isSpread? "C{...".length() : "C{".length(),
+                prefixLength,
                 value.length()-1
         );
     }
@@ -116,5 +136,7 @@ public class ConstantsPreprocessor {
         Superheroes.getInstance().getLogger().severe("Invalid constant path: \"" + path + "\" at "+location);
         return null;
     }
+
+    private record ConstantData(Object value, boolean isSpread) {}
 
 }
